@@ -2,6 +2,7 @@ package main
 
 import "strings"
 
+// i will put the websites domain and icons in websites.json, and also upload all icons in uploadthing cloud to centralize.
 func getWebsiteLogo(urlImg string) (string, error) {
 	if strings.HasPrefix(urlImg, "https://medium.com") {
 		return "https://www.svgrepo.com/show/354057/medium-icon.svg", nil
