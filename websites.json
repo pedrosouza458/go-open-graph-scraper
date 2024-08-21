@@ -1,26 +1,123 @@
 [
 	{
-		"website": "https://best.aliexpress.com",
+		"website": "aliexpress.com",
     "logo": "https://utfs.io/f/8c82365e-1342-44a2-83a4-c32f87684c35-e4hwaf.png"
 	},
   {
-    "website": "https://www.amazon.com",
+		"website": "alura.com",
+    "logo": "https://utfs.io/f/77ed3b54-863f-4173-ac50-51df368b6e9c-e233hd.png"
+	},
+  {
+    "website": "amazon.com",
     "logo": "https://utfs.io/f/3c32a7cd-b3c6-4028-b818-22b0dfc32c7d-elnm0c.png"
   },
   {
-    "website": "https://www.bbc.com",
+    "website": "bbc.com",
     "logo": "https://utfs.io/f/77d903e2-1eba-48f5-9da2-c0318bb014f1-m7mfhn.png"
   },
   {
-    "website": "https://www.facebook.com",
+    "website": "curso.dev",
+    "logo": "https://utfs.io/f/4880d308-fcd4-4bad-bfbd-c5e11795ef18-7fqnpo.png"
+  },
+  {
+    "website": "descomplica.com",
+    "logo": "https://utfs.io/f/0a24f5e2-d799-4635-8050-5ca0fe34ffca-a7zjj0.png"
+  },
+  {
+    "website": "devianart.com",
+    "logo": "https://utfs.io/f/1b6aacda-ee02-4fa3-8958-ca7b364f2768-6wesqk.png"
+  },
+  {
+    "website": "discord.com",
+    "logo": "https://utfs.io/f/0e4dbfea-5be7-4781-8fcd-f9c00f32df7c-ua24ks.png"
+  },
+  {
+    "website": "domestika.org",
+    "logo": "https://utfs.io/f/7dbb3683-bc7b-4c49-9a63-b6a992ac2cfe-2qvq2r.png"
+  },
+  {
+    "website": "dribble.com",
+    "logo": "https://utfs.io/f/84aaad32-772e-4128-a1a3-d1bb04945e08-26zxfo.png"
+  },
+  {
+    "website": "facebook.com",
     "logo": "https://utfs.io/f/63159ee6-6f56-45eb-8cb1-1f4e805ed9b1-q1hzrm.png"
   },
   {
-    "website": "https://www.figma.com",
+    "website": "figma.com",
     "logo": "https://utfs.io/f/b6044efd-f4e3-4655-8ef6-403ab0f8ed23-8n7etc.png"
   },
   {
-    "website": "https://github.com",
-    "logo": "https://utfs.io/f/bb34dc6e-ede0-4e69-934f-f1c9f7b7c60e-n8l1zp.png"
+    "website": "gitlab.com",
+    "logo": "https://utfs.io/f/3f30eff4-a2a3-417b-8f8f-a97794acf7a0-cymm9v.png"
+  },
+  {
+    "website": "github.com",
+    "logo": "https://utfs.io/f/503dc239-2ada-4caf-9f5a-ef92a778c194-n8l1zp.png"
+  },
+  {
+    "website": "globo.com",
+    "logo": "https://utfs.io/f/eeffda10-b7e8-480c-8d9b-53ad96b98fc4-8iv8sf.png"
+  },
+  {
+    "website": "google.com",
+    "logo": "https://utfs.io/f/1dd35c4f-7e8d-4707-8e86-2ab682e27d0a-6awsox.png"
+  },
+  {
+    "website": "instagram.com",
+    "logo": "https://utfs.io/f/83aff4a6-48c8-4282-a81a-2655424916a0-lpkn3a.png"
+  },
+  {
+    "website": "medium.com",
+    "logo": "https://utfs.io/f/63ff589b-264e-4771-8b7c-ffc92f4d5bec-f2rw1v.png"
+  },
+  {
+    "website": "origamid.com",
+    "logo": "https://utfs.io/f/c557f7bc-1ff6-4a74-a23e-31f53356c775-15p6sw.png"
+  },
+  {
+    "website": "pinterest.com",
+    "logo": "https://utfs.io/f/16eb17c8-eba0-497a-b3f9-ea8cc41e944f-oznv26.png"
+  },
+  {
+    "website": "reddit.com",
+    "logo": "https://utfs.io/f/b8056502-fc2c-488b-9fa2-2dec37fbce99-o9eq12.png"
+  },
+  {
+    "website": "rocketseat.com",
+    "logo": "https://utfs.io/f/592ddf9b-8372-4c79-bbcb-076035b77b5b-hyntpb.png"
+  },
+  {
+    "website": "shein.com",
+    "logo": "https://utfs.io/f/7630b775-2b54-43ab-814c-322ec082bdc9-s5azdv.png"
+  },
+  {
+    "website": "tabnews.com",
+    "logo": "https://utfs.io/f/51166e61-9e5f-49a7-b457-f04c8a27d942-xz2ru8.png"
+  },
+  {
+    "website": "tumblr.com",
+    "logo": "https://utfs.io/f/1b6aacda-ee02-4fa3-8958-ca7b364f2768-6wesqk.png"
+  },
+  {
+    "website": "twitch.tv",
+    "logo": "https://utfs.io/f/1f5e66e6-6836-4e0f-94ff-5d762e25167c-e8ivjh.png"
+  },
+  {
+    "website": "udemy.com",
+    "logo": "https://utfs.io/f/a099e2cf-5398-46e7-b3a8-9a3646b088a9-7yi1qi.png"
+  },
+  {
+    "website": "w3chools.com",
+    "logo": "https://utfs.io/f/41bddcf7-52da-48c7-8f20-92c286ee5f66-evow5x.png"
+  },
+  {
+    "website": "youtube.com",
+    "logo": "https://utfs.io/f/57e7b705-550e-4e45-9b6f-a7c75fdf5f6b-v0hded.png"
+  },
+  {
+    "website": "x.com",
+    "logo": "https://utfs.io/f/17414a0e-5e9d-44aa-b5d0-5499e853f5ad-dgzcio.png"
   }
 ]
+
