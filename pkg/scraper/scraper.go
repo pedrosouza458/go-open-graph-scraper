@@ -1,0 +1,117 @@
+package scraper
+
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"os"
+	"strings"
+
+	"github.com/PuerkitoBio/goquery"
+)
+
+type Website struct {
+	Website string `json:"website"`
+	Logo    string `json:"logo"`
+}
+
+func GetWebsiteName(rawurl string) (string, error) {
+	parsedUrl, err := url.Parse(rawurl)
+	if err != nil {
+		return "", err
+	}
+
+	hostname := parsedUrl.Hostname()
+
+	// Split the hostname into parts
+	parts := strings.Split(hostname, ".")
+
+	// Handle common cases: www.example.com or example.com
+	// If there are 3 parts, "www.example.com", take the second part ("example")
+	// If there are 2 parts, "example.com", take the first part ("example")
+	if len(parts) > 2 {
+		return parts[1], nil
+	} else if len(parts) == 2 {
+		return parts[0], nil
+	}
+
+	return hostname, nil
+}
+
+func GetWebsiteLogo(url string) (string, error) {
+	// Open the JSON file
+	jsonFile, err := os.Open("websites.json")
+	if err != nil {
+		return "", fmt.Errorf("failed to open websites.json: %v", err)
+	}
+	defer jsonFile.Close()
+
+	// Read the JSON file
+	byteValue, err := io.ReadAll(jsonFile)
+	if err != nil {
+		return "", fmt.Errorf("failed to read websites.json: %v", err)
+	}
+
+	// Parse the JSON file into a slice of Website structs
+	var websites []Website
+	if err := json.Unmarshal(byteValue, &websites); err != nil {
+		return "", fmt.Errorf("failed to unmarshal websites.json: %v", err)
+	}
+
+	// Search for the website and return the logo if found
+	for _, website := range websites {
+		if strings.Contains(url, website.Website) {
+			return website.Logo, nil
+		}
+	}
+
+	// Return an error if no match is found
+	return "", fmt.Errorf("no logo found for URL: %s", url)
+}
+
+func GetWebsitePageTitle(url string) (string, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	title, _ := doc.Find(`meta[property="og:title"]`).Attr("content")
+	return title, nil
+}
+
+func GetWebsiteImg(url string) (string, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	imgURL, _ := doc.Find(`meta[property="og:image"]`).Attr("content")
+	return imgURL, nil
+}
+
+func GetWebsiteDescription(url string) (string, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	description, _ := doc.Find(`meta[property="og:description"]`).Attr("content")
+	return description, nil
+}

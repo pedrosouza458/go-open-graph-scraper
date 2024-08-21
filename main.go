@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/PuerkitoBio/goquery"
+	"github.com/pedrosouza458/go-open-graph-scraper/pkg/scraper"
 )
 
 func main() {
@@ -13,30 +13,46 @@ func main() {
 	var baseURL string
 	fmt.Scanln(&baseURL)
 
-	resp, err := http.Get(baseURL)
-
+	// Retrieve and display website name
+	name, err := scraper.GetWebsiteName(baseURL)
 	if err != nil {
-		fmt.Println(err)
-		return
+		fmt.Println("Error fetching website name:", err)
+	} else {
+		fmt.Println("Website name: " + name)
 	}
 
-	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	// Retrieve and display website logo
+	logo, err := scraper.GetWebsiteLogo(baseURL)
 	if err != nil {
-		fmt.Println(err)
-		return
+		fmt.Println("Error fetching logo:", err)
+	} else {
+		fmt.Println("Logo: " + logo)
 	}
 
-	logo, _ := getWebsiteLogo(baseURL)
-	name, _ := getWebsiteName(baseURL)
-	imgURL, _ := doc.Find(`meta[property="og:image"]`).Attr("content")
-	pageName, _ := doc.Find(`meta[property="og:title"]`).Attr("content")
-	description, _ := doc.Find(`meta[property="og:description"]`).Attr("content")
+	// Retrieve and display website image
+	imgURL, err := scraper.GetWebsiteImg(baseURL)
+	if err != nil {
+		fmt.Println("Error fetching image URL:", err)
+	} else {
+		fmt.Println("Image: " + imgURL)
+	}
 
-	fmt.Println("Logo: " + logo)
-	fmt.Println("Website name: " + name)
-	fmt.Println("Image:" + imgURL)
-	fmt.Println("Page Name:" + pageName)
-	fmt.Println("Page Description: " + description)
+	// Retrieve and display page title
+	pageTitle, err := scraper.GetWebsitePageTitle(baseURL)
+	if err != nil {
+		fmt.Println("Error fetching page title:", err)
+	} else {
+		fmt.Println("Page Name: " + pageTitle)
+	}
 
+	// Retrieve and display page description
+	description, err := scraper.GetWebsiteDescription(baseURL)
+	if err != nil {
+		fmt.Println("Error fetching page description:", err)
+	} else {
+		fmt.Println("Page Description: " + description)
+	}
+
+	// Keep the server running
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
