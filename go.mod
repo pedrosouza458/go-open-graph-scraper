@@ -1,4 +1,4 @@
-module example.com/hello
+module go-open-graph-scraper
 
 go 1.22.5
 

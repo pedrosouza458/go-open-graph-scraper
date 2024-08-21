@@ -15,6 +15,7 @@ type Website struct {
 }
 
 func getWebsiteLogo(url string) (string, error) {
+
 	// Open the JSON file
 	jsonFile, err := os.Open("websites.json")
 	if err != nil {
