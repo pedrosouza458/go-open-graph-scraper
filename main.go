@@ -14,12 +14,17 @@ func main() {
 	fmt.Scanln(&baseURL)
 
 	resp, err := http.Get(baseURL)
+
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	doc, err := goquery.NewDocumentFromResponse(resp)
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	logo, _ := getWebsiteLogo(baseURL)
 	name, _ := getWebsiteName(baseURL)
