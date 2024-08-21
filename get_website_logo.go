@@ -3,7 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+
 	"os"
 	"strings"
 )
@@ -13,9 +14,6 @@ type Website struct {
 	Logo    string `json:"logo"`
 }
 
-// import "strings"
-
-// i will put the websites domain and logos in websites.json, and also upload all icons in uploadthing cloud to centralize and reduce the if statements.
 func getWebsiteLogo(url string) (string, error) {
 	// Open the JSON file
 	jsonFile, err := os.Open("websites.json")
@@ -25,7 +23,7 @@ func getWebsiteLogo(url string) (string, error) {
 	defer jsonFile.Close()
 
 	// Read the JSON file
-	byteValue, err := ioutil.ReadAll(jsonFile)
+	byteValue, err := io.ReadAll(jsonFile)
 	if err != nil {
 		return "", fmt.Errorf("failed to read websites.json: %v", err)
 	}
