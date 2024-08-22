@@ -82,7 +82,7 @@ func GetWebsiteLogo(url string) (string, error) {
 	}
 
 	// Return an error if no match is found
-	return "", fmt.Errorf("no logo found for URL: %s", url)
+	return "", nil
 }
 
 func GetWebsitePageTitle(url string) (string, error) {
