@@ -147,10 +147,7 @@ func GetWebsiteType(url string) (string, error) {
 	}
 
 	// Find the `og:type` meta tag content
-	ogType, exists := doc.Find(`meta[property="og:type"]`).Attr("content")
-	if !exists {
-		return "", fmt.Errorf("og:type meta tag not found")
-	}
+	ogType, _ := doc.Find(`meta[property="og:type"]`).Attr("content")
 
 	// Create response object based on type
 	response := OpenGraphResponse{
