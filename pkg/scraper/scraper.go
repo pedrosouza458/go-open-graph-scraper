@@ -3,7 +3,6 @@ package scraper
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -11,6 +10,8 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 )
+
+var websitesJSON []byte
 
 type Website struct {
 	Website string `json:"website"`
@@ -41,17 +42,9 @@ func GetWebsiteName(rawurl string) (string, error) {
 }
 
 func GetWebsiteLogo(url string) (string, error) {
-	// Open the JSON file
-	jsonFile, err := os.Open("websites.json")
+	byteValue, err := os.ReadFile("websites.json")
 	if err != nil {
-		return "", fmt.Errorf("failed to open websites.json: %v", err)
-	}
-	defer jsonFile.Close()
-
-	// Read the JSON file
-	byteValue, err := io.ReadAll(jsonFile)
-	if err != nil {
-		return "", fmt.Errorf("failed to read websites.json: %v", err)
+		return "", fmt.Errorf("failed to read embedded websites.json: %v", err)
 	}
 
 	// Parse the JSON file into a slice of Website structs
