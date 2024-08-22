@@ -1,6 +1,7 @@
 package scraper
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -15,6 +16,33 @@ type Website struct {
 	Website string `json:"website"`
 	Logo    string `json:"logo"`
 }
+
+// Base struct for the JSON response
+type OpenGraphResponse struct {
+	Type    string      `json:"type"`
+	Details interface{} `json:"details,omitempty"`
+}
+
+// Music type details
+type MusicDetails struct {
+	Duration    int      `json:"duration,omitempty"`
+	Album       string   `json:"album,omitempty"`
+	Musician    []string `json:"musician,omitempty"`
+	ReleaseDate string   `json:"release_date,omitempty"`
+}
+
+// Video type details
+type VideoDetails struct {
+	Duration    int      `json:"duration,omitempty"`
+	ReleaseDate string   `json:"release_date,omitempty"`
+	Actor       []string `json:"actor,omitempty"`
+	Director    []string `json:"director,omitempty"`
+	Writer      []string `json:"writer,omitempty"`
+	Tag         []string `json:"tag,omitempty"`
+}
+
+// No specific metadata details
+type GenericDetails struct{}
 
 func GetWebsiteName(rawurl string) (string, error) {
 	parsedUrl, err := url.Parse(rawurl)
@@ -100,4 +128,86 @@ func GetWebsiteDescription(url string) (string, error) {
 	}
 	description, _ := doc.Find(`meta[property="og:description"]`).Attr("content")
 	return description, nil
+}
+
+func GetWebsiteType(url string) (string, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return "", fmt.Errorf("failed to get URL: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("failed to parse document: %w", err)
+	}
+
+	// Find the `og:type` meta tag content
+	ogType, exists := doc.Find(`meta[property="og:type"]`).Attr("content")
+	if !exists {
+		return "", fmt.Errorf("og:type meta tag not found")
+	}
+
+	// Create response object based on type
+	response := OpenGraphResponse{
+		Type: ogType,
+	}
+
+	// Determine details based on type
+	switch {
+	case ogType == "music.song":
+		response.Details = MusicDetails{
+			// Populate with relevant details if available
+		}
+	case ogType == "video.movie":
+		response.Details = VideoDetails{
+			// Populate with relevant details if available
+		}
+	default:
+		response.Details = GenericDetails{}
+	}
+
+	// Marshal response to JSON
+	jsonData, err := json.Marshal(response)
+	if err != nil {
+		return "", fmt.Errorf("failed to marshal JSON: %w", err)
+	}
+
+	return string(jsonData), nil
+}
+
+func GetWebsiteLocale(url string) (string, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	locale, _ := doc.Find(`meta[property="og:locale"]`).Attr("content")
+	return locale, nil
+
+}
+
+func GetWebsiteVideo(url string) (string, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return "", err
+	}
+	video, _ := doc.Find(`meta[property="og:video"]`).Attr("content")
+	return video, nil
+
 }

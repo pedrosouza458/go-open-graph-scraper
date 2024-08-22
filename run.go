@@ -37,6 +37,14 @@ func main() {
 		fmt.Println("Image: " + imgURL)
 	}
 
+	// Retrieve and display website image
+	video, err := scraper.GetWebsiteVideo(baseURL)
+	if err != nil {
+		fmt.Println("Error fetching video:", err)
+	} else {
+		fmt.Println("Video: " + video)
+	}
+
 	// Retrieve and display page title
 	pageTitle, err := scraper.GetWebsitePageTitle(baseURL)
 	if err != nil {
@@ -51,6 +59,22 @@ func main() {
 		fmt.Println("Error fetching page description:", err)
 	} else {
 		fmt.Println("Page Description: " + description)
+	}
+
+	// Retrieve and display page type
+	page_type, err := scraper.GetWebsiteType(baseURL)
+	if err != nil {
+		fmt.Println("Error fetching page type:", err)
+	} else {
+		fmt.Println("Page type: " + page_type)
+	}
+
+	// Retrieve and display page type
+	locale, err := scraper.GetWebsiteLocale(baseURL)
+	if err != nil {
+		fmt.Println("Error fetching page locale:", err)
+	} else {
+		fmt.Println("Page locale: " + locale)
 	}
 
 	// Keep the server running
