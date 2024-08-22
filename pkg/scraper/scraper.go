@@ -44,12 +44,14 @@ func GetWebsiteName(rawurl string) (string, error) {
 func GetWebsiteLogo(url string) (string, error) {
 	byteValue, err := os.ReadFile("websites.json")
 	if err != nil {
+		fmt.Println("Error reading embedded JSON:", err)
 		return "", fmt.Errorf("failed to read embedded websites.json: %v", err)
 	}
 
 	// Parse the JSON file into a slice of Website structs
 	var websites []Website
 	if err := json.Unmarshal(byteValue, &websites); err != nil {
+		fmt.Println("Error unmarshalling JSON:", err)
 		return "", fmt.Errorf("failed to unmarshal websites.json: %v", err)
 	}
 
