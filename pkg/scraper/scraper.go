@@ -71,7 +71,7 @@ func GetWebsiteLogo(url string) (string, error) {
 	websites, err := embed.GetWebsites()
 	if err != nil {
 		fmt.Println("Error reading embedded JSON:", err)
-		return "", fmt.Errorf("failed to read embedded websites.json: %v", err)
+		return "", nil
 	}
 
 	// Search for the website and return the logo if found
