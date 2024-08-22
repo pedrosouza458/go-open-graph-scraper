@@ -1,14 +1,14 @@
 package scraper
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
-	"os"
+
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
+	embed "github.com/pedrosouza458/go-open-graph-scraper/utils"
 )
 
 var websitesJSON []byte
@@ -42,17 +42,10 @@ func GetWebsiteName(rawurl string) (string, error) {
 }
 
 func GetWebsiteLogo(url string) (string, error) {
-	byteValue, err := os.ReadFile("websites.json")
+	websites, err := embed.GetData()
 	if err != nil {
 		fmt.Println("Error reading embedded JSON:", err)
 		return "", fmt.Errorf("failed to read embedded websites.json: %v", err)
-	}
-
-	// Parse the JSON file into a slice of Website structs
-	var websites []Website
-	if err := json.Unmarshal(byteValue, &websites); err != nil {
-		fmt.Println("Error unmarshalling JSON:", err)
-		return "", fmt.Errorf("failed to unmarshal websites.json: %v", err)
 	}
 
 	// Search for the website and return the logo if found
