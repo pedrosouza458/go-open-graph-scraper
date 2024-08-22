@@ -11,8 +11,6 @@ import (
 	embed "github.com/pedrosouza458/go-open-graph-scraper/utils"
 )
 
-var websitesJSON []byte
-
 type Website struct {
 	Website string `json:"website"`
 	Logo    string `json:"logo"`
@@ -42,7 +40,7 @@ func GetWebsiteName(rawurl string) (string, error) {
 }
 
 func GetWebsiteLogo(url string) (string, error) {
-	websites, err := embed.GetData()
+	websites, err := embed.GetWebsites()
 	if err != nil {
 		fmt.Println("Error reading embedded JSON:", err)
 		return "", fmt.Errorf("failed to read embedded websites.json: %v", err)
