@@ -3,7 +3,6 @@
 
 This is a very simples Golang scraping that uses website OG (Open Graph) to get some informations like website name, page title, description and images, feel free to contribute forking this repo, the main goal is to use this package and my future project (that will also be open-source) and to study Golang, cause i know that packages like that already exists, but i wanna make my own.
 
-  
   <p>
   <a href="https://github.com/pedrosouza458/go-open-graph-scraper/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/pedrosouza458/go-open-graph-scraper" alt="GitHub License" />
