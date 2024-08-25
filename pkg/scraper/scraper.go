@@ -133,17 +133,17 @@ func GetWebsiteDescription(url string) (string, error) {
 func GetWebsiteType(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
-		return "", fmt.Errorf("failed to get URL: %w", err)
+		return "", nil
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		return "", nil
 	}
 
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
-		return "", fmt.Errorf("failed to parse document: %w", err)
+		return "", nil
 	}
 
 	// Find the `og:type` meta tag content
