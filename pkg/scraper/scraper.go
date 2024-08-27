@@ -44,6 +44,10 @@ type VideoDetails struct {
 // No specific metadata details
 type GenericDetails struct{}
 
+/*
+Get the website name by a url string provided, will return either
+the name or empty string if it cannot find.
+*/
 func GetWebsiteName(rawurl string) (string, error) {
 	parsedUrl, err := url.Parse(rawurl)
 	if err != nil {
@@ -51,13 +55,7 @@ func GetWebsiteName(rawurl string) (string, error) {
 	}
 
 	hostname := parsedUrl.Hostname()
-
-	// Split the hostname into parts
 	parts := strings.Split(hostname, ".")
-
-	// Handle common cases: www.example.com or example.com
-	// If there are 3 parts, "www.example.com", take the second part ("example")
-	// If there are 2 parts, "example.com", take the first part ("example")
 	if len(parts) > 2 {
 		return parts[1], nil
 	} else if len(parts) == 2 {
@@ -67,6 +65,11 @@ func GetWebsiteName(rawurl string) (string, error) {
 	return hostname, nil
 }
 
+/*
+Get the website logo by a url string provided, will return either
+the logo or empty string if it cannot find; check the full websites
+json if logos in: https://github.com/pedrosouza458/go-open-graph-scraper/blob/main/utils/websites.json.
+*/
 func GetWebsiteLogo(url string) (string, error) {
 	websites, err := embed.GetWebsites()
 	if err != nil {
@@ -85,6 +88,11 @@ func GetWebsiteLogo(url string) (string, error) {
 	return "", nil
 }
 
+/*
+Get the website title by a url string provided accesing the og:title
+of website url, will return either the title or empty string if it
+cannot find.
+*/
 func GetWebsitePageTitle(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -100,6 +108,11 @@ func GetWebsitePageTitle(url string) (string, error) {
 	return title, nil
 }
 
+/*
+Get the website page image by a url string provided accesing the og:image
+of website url, will return either the image or empty string if it
+cannot find.
+*/
 func GetWebsiteImg(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -115,6 +128,11 @@ func GetWebsiteImg(url string) (string, error) {
 	return imgURL, nil
 }
 
+/*
+Get the website page description by a url string provided accesing the og:description
+of website url, will return either the description or empty string if it
+cannot find.
+*/
 func GetWebsiteDescription(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -130,6 +148,11 @@ func GetWebsiteDescription(url string) (string, error) {
 	return description, nil
 }
 
+/*
+Get the website page type object by a url string provided accesing
+the og:type of website url, will return either the type object or
+empty string if it cannot find.
+*/
 func GetWebsiteType(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -177,6 +200,11 @@ func GetWebsiteType(url string) (string, error) {
 	return string(jsonData), nil
 }
 
+/*
+Get the website locale by a url string provided accesing the og:locale
+of website url, will return either the locale or empty string if it
+cannot find.
+*/
 func GetWebsiteLocale(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -193,6 +221,11 @@ func GetWebsiteLocale(url string) (string, error) {
 
 }
 
+/*
+Get the website video by a url string provided accesing the og:video
+of website url, will return either the video url or empty string if it
+cannot find.
+*/
 func GetWebsiteVideo(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
