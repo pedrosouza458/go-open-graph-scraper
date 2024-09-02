@@ -4,12 +4,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
+	"github.com/gobuffalo/plush"
 	"github.com/pedrosouza458/go-open-graph-scraper/pkg/scraper"
 )
 
 func main() {
 
+	ctx := plush.NewContext()
 	var baseURL string
 	fmt.Scanln(&baseURL)
 
@@ -19,6 +22,7 @@ func main() {
 		fmt.Println("Error fetching website name:", err)
 	} else {
 		fmt.Println("Website name: " + name)
+		ctx.Set("name", name)
 	}
 
 	// Retrieve and display website logo
@@ -77,6 +81,18 @@ func main() {
 		fmt.Println("Page locale: " + locale)
 	}
 
+	s, _ := plush.Render(html(), ctx)
+
+	fmt.Println(s)
+
 	// Keep the server running
 	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+func html() string {
+	b, err := os.ReadFile("./render.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	return string(b)
 }
